@@ -2,6 +2,7 @@ package productservice.services;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import productservice.dto.CategoryDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
 import productservice.thirdpartyclients.FakeStoreProductDto;
@@ -47,5 +48,10 @@ public class FakeStoreProductServiceImpl implements ProductService {
         }
 
         return productDtoList;
+    }
+
+    @Override
+    public List<String> getAllCategories() {
+        return fakeStoreProductServiceClient.getAllCategories();
     }
 }

@@ -1,5 +1,6 @@
 package productservice.services;
 
+import productservice.dto.CategoryDto;
 import productservice.dto.ProductDto;
 import productservice.thirdpartyclients.FakeStoreProductDto;
 
@@ -14,6 +15,11 @@ public class SelfProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDto> getProductList() {
+        return null;
+    }
+
+    @Override
+    public List<String> getAllCategories() {
         return null;
     }
 }
