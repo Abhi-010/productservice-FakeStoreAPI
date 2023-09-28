@@ -7,6 +7,9 @@ import org.springframework.web.client.RestTemplate;
 import productservice.exception.NotFoundException;
 import productservice.models.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class FakeStoreProductServiceClient {
     private RestTemplateBuilder restTemplateBuilder;
@@ -25,6 +28,18 @@ public class FakeStoreProductServiceClient {
             throw new NotFoundException("this id is not valid");
         }
         return fakeStoreProductDto;
+    }
+
+    public List<FakeStoreProductDto> getProductlist(){
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        ResponseEntity<FakeStoreProductDto[]> responseEntity =
+                restTemplate.getForEntity("https://fakestoreapi.com/products",
+                        FakeStoreProductDto[].class);
+
+        List<FakeStoreProductDto> fakeStoreProductDtos = List.of(responseEntity.getBody());
+
+        return fakeStoreProductDtos;
     }
 
 }

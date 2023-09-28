@@ -11,6 +11,8 @@ import productservice.exception.NotFoundException;
 import productservice.services.ProductService;
 import productservice.thirdpartyclients.FakeStoreProductDto;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -20,15 +22,16 @@ public class ProductController {
         this.productService = productService;
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProducts(@PathVariable ("id")Long id) throws NotFoundException {
-
         ResponseEntity<ProductDto> responseEntity =
                 new ResponseEntity<>(productService.getProductById(id), HttpStatus.NOT_FOUND);
-
         return responseEntity;
-//        return productService.getProductById(id);
+    }
+
+    @GetMapping
+    public List<ProductDto> getProductList(){
+        return productService.getProductList();
     }
 
 

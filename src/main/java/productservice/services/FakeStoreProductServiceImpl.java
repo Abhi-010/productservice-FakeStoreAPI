@@ -7,6 +7,9 @@ import productservice.exception.NotFoundException;
 import productservice.thirdpartyclients.FakeStoreProductDto;
 import productservice.thirdpartyclients.FakeStoreProductServiceClient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Primary
 public class FakeStoreProductServiceImpl implements ProductService {
@@ -24,5 +27,25 @@ public class FakeStoreProductServiceImpl implements ProductService {
         productDto.setTitle(fakeStoreProductDto.getTitle());
         productDto.setPrice(fakeStoreProductDto.getPrice());
         return  productDto;
+    }
+
+    @Override
+    public List<ProductDto> getProductList() {
+
+        List<FakeStoreProductDto> fakeStoreProductDtos =
+                fakeStoreProductServiceClient.getProductlist();
+
+
+        List<ProductDto> productDtoList = new ArrayList<>();
+        for(FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos){
+            ProductDto productDto = new ProductDto();
+            productDto.setPrice(fakeStoreProductDto.getPrice());
+            productDto.setTitle(fakeStoreProductDto.getTitle());
+            productDto.setCategory(fakeStoreProductDto.getCategory());
+
+            productDtoList.add(productDto);
+        }
+
+        return productDtoList;
     }
 }
