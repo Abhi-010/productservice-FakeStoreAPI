@@ -36,9 +36,8 @@ public class ProductController {
     }
 
 
-
     @GetMapping("/category/{categoryName}")
-    public List<ProductDto> getProductsByCategory(@PathVariable("categoryName") String categoryName){
+    public List<ProductDto> getProductsByCategory(@PathVariable("categoryName") String categoryName) throws NotFoundException {
         return productService.getProductsByCategory(categoryName);
     }
 

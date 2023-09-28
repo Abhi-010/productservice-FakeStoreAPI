@@ -12,5 +12,5 @@ public interface ProductService {
     public ProductDto getProductById(Long id) throws NotFoundException;
     public List<ProductDto> getProductList();
 
-    public List<ProductDto> getProductsByCategory(String categoryName);
+    public List<ProductDto> getProductsByCategory(String categoryName) throws NotFoundException;
 }

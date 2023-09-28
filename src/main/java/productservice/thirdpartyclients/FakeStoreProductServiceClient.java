@@ -45,7 +45,7 @@ public class FakeStoreProductServiceClient {
 
 
 
-    public List<FakeStoreProductDto> getProductsByCategory(String categoryName){
+    public List<FakeStoreProductDto> getProductsByCategory(String categoryName) throws NotFoundException {
 
         RestTemplate restTemplate = restTemplateBuilder.build();
 
@@ -53,6 +53,9 @@ public class FakeStoreProductServiceClient {
                 restTemplate.getForEntity("https://fakestoreapi.com/products/category/{categoryName}",FakeStoreProductDto[].class,categoryName);
 
         List<FakeStoreProductDto> fakeStoreProductDtoList = List.of(responseEntity.getBody());
+        if(fakeStoreProductDtoList.isEmpty()){
+            throw new NotFoundException("this category is not valid");
+        }
         return fakeStoreProductDtoList;
 
     }

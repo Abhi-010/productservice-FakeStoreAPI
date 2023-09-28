@@ -52,7 +52,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<ProductDto> getProductsByCategory(String categoryName) {
+    public List<ProductDto> getProductsByCategory(String categoryName) throws NotFoundException {
 
         List<FakeStoreProductDto> fakeStoreProductDtoList =
                 fakeStoreProductServiceClient.getProductsByCategory(categoryName);
