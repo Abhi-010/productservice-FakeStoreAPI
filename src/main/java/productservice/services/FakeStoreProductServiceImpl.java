@@ -50,10 +50,6 @@ public class FakeStoreProductServiceImpl implements ProductService {
         return productDtoList;
     }
 
-    @Override
-    public List<String> getAllCategories() {
-        return fakeStoreProductServiceClient.getAllCategories();
-    }
 
     @Override
     public List<ProductDto> getProductsByCategory(String categoryName) {

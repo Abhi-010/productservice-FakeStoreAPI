@@ -43,23 +43,7 @@ public class FakeStoreProductServiceClient {
         return fakeStoreProductDtos;
     }
 
-    public List<String> getAllCategories(){
-        RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<String[]> responseEntity =
-                restTemplate.getForEntity("https://fakestoreapi.com/products/categories",String[].class);
 
-        List<String> categories = List.of(responseEntity.getBody());
-          return categories;
-//        List<CategoryDto> categoryDtos = new ArrayList<>();
-//
-//        for(String s : categories){
-//            CategoryDto categoryDto = new CategoryDto();
-//            categoryDto.setName(s);
-//
-//            categoryDtos.add(categoryDto);
-//        }
-//        return categoryDtos;
-    }
 
     public List<FakeStoreProductDto> getProductsByCategory(String categoryName){
 

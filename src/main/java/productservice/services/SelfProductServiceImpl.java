@@ -18,10 +18,6 @@ public class SelfProductServiceImpl implements ProductService {
         return null;
     }
 
-    @Override
-    public List<String> getAllCategories() {
-        return null;
-    }
 
     @Override
     public List<ProductDto> getProductsByCategory(String categoryName) {
