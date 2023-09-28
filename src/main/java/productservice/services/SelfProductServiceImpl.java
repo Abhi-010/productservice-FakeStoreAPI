@@ -22,4 +22,9 @@ public class SelfProductServiceImpl implements ProductService {
     public List<String> getAllCategories() {
         return null;
     }
+
+    @Override
+    public List<ProductDto> getProductsByCategory(String categoryName) {
+        return null;
+    }
 }

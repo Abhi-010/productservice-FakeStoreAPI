@@ -54,4 +54,24 @@ public class FakeStoreProductServiceImpl implements ProductService {
     public List<String> getAllCategories() {
         return fakeStoreProductServiceClient.getAllCategories();
     }
+
+    @Override
+    public List<ProductDto> getProductsByCategory(String categoryName) {
+
+        List<FakeStoreProductDto> fakeStoreProductDtoList =
+                fakeStoreProductServiceClient.getProductsByCategory(categoryName);
+
+
+        List<ProductDto> productDtoList = new ArrayList<>();
+        for(FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtoList){
+            ProductDto productDto = new ProductDto();
+            productDto.setPrice(fakeStoreProductDto.getPrice());
+            productDto.setTitle(fakeStoreProductDto.getTitle());
+            productDto.setCategory(fakeStoreProductDto.getCategory());
+
+            productDtoList.add(productDto);
+        }
+
+        return productDtoList;
+    }
 }
