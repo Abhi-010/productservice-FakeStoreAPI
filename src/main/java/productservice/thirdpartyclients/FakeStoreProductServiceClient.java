@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import productservice.dto.CategoryDto;
+import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
 import productservice.models.Product;
 
@@ -13,7 +14,9 @@ import java.util.List;
 
 @Service
 public class FakeStoreProductServiceClient {
+
     private RestTemplateBuilder restTemplateBuilder;
+
     public FakeStoreProductServiceClient(RestTemplateBuilder restTemplateBuilder){
         this.restTemplateBuilder = restTemplateBuilder;
     }
@@ -44,7 +47,6 @@ public class FakeStoreProductServiceClient {
     }
 
 
-
     public List<FakeStoreProductDto> getProductsByCategory(String categoryName) throws NotFoundException {
 
         RestTemplate restTemplate = restTemplateBuilder.build();
@@ -57,6 +59,19 @@ public class FakeStoreProductServiceClient {
             throw new NotFoundException("this category is not valid");
         }
         return fakeStoreProductDtoList;
+
+    }
+
+    public FakeStoreProductDto createProduct(ProductDto product){
+
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        ResponseEntity<FakeStoreProductDto> responseEntity =
+                restTemplate.postForEntity("https://fakestoreapi.com/products",product,
+                        FakeStoreProductDto.class);
+
+        return responseEntity.getBody();
+
 
     }
 

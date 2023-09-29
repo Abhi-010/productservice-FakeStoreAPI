@@ -2,11 +2,9 @@ package productservice.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import productservice.dto.CategoryDto;
+import productservice.dto.CreateProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
 import productservice.services.ProductService;
@@ -41,4 +39,9 @@ public class ProductController {
         return productService.getProductsByCategory(categoryName);
     }
 
+
+    @PostMapping
+    public CreateProductDto createProduct(@RequestBody ProductDto productDto){
+        return productService.createProduct(productDto);
+    }
 }

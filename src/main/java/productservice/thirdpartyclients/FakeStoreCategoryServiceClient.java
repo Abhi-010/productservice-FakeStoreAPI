@@ -9,10 +9,13 @@ import java.util.List;
 
 @Service
 public class FakeStoreCategoryServiceClient {
+
     private RestTemplateBuilder restTemplateBuilder;
+
     public FakeStoreCategoryServiceClient(RestTemplateBuilder restTemplateBuilder){
         this.restTemplateBuilder = restTemplateBuilder;
     }
+
     public List<String> getAllCategories(){
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<String[]> responseEntity =

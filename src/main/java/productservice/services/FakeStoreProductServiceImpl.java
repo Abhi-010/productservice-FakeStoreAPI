@@ -3,6 +3,7 @@ package productservice.services;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import productservice.dto.CategoryDto;
+import productservice.dto.CreateProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
 import productservice.thirdpartyclients.FakeStoreProductDto;
@@ -69,5 +70,23 @@ public class FakeStoreProductServiceImpl implements ProductService {
         }
 
         return productDtoList;
+    }
+
+    @Override
+    public CreateProductDto createProduct(ProductDto productDto) {
+        FakeStoreProductDto fakeStoreProductDto =
+                fakeStoreProductServiceClient.createProduct(productDto);
+
+        CreateProductDto createProductDto = new CreateProductDto();
+        createProductDto.setCategory(fakeStoreProductDto.getCategory());
+        createProductDto.setId(fakeStoreProductDto.getId());
+        createProductDto.setTitle(fakeStoreProductDto.getTitle());
+        createProductDto.setDescription(fakeStoreProductDto.getDescription());
+        createProductDto.setPrice(fakeStoreProductDto.getPrice());
+
+        return createProductDto;
+
+
+
     }
 }

@@ -1,6 +1,7 @@
 package productservice.services;
 
 import productservice.dto.CategoryDto;
+import productservice.dto.CreateProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
 import productservice.thirdpartyclients.FakeStoreProductDto;
@@ -13,4 +14,7 @@ public interface ProductService {
     public List<ProductDto> getProductList();
 
     public List<ProductDto> getProductsByCategory(String categoryName) throws NotFoundException;
+
+    public CreateProductDto createProduct(ProductDto productDto);
+
 }
