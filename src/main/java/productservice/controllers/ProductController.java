@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import productservice.dto.CategoryDto;
 import productservice.dto.CreateProductDto;
+import productservice.dto.GenericProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
 import productservice.services.ProductService;
@@ -43,5 +44,19 @@ public class ProductController {
     @PostMapping
     public CreateProductDto createProduct(@RequestBody ProductDto productDto){
         return productService.createProduct(productDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ProductDto> deleteProductById(@PathVariable("id") Long id){
+        return new ResponseEntity<>(productService.deleteProductById(id),
+                HttpStatus.OK);
+    }
+
+    @PutMapping("{id}")
+    public GenericProductDto updateProduct(@PathVariable("id") Long id,
+            @RequestBody GenericProductDto genericProductDto){
+
+        return productService.updateProduct(id, genericProductDto);
+
     }
 }

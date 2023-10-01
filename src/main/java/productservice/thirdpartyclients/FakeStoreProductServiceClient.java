@@ -1,10 +1,14 @@
 package productservice.thirdpartyclients;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RequestCallback;
+import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 import productservice.dto.CategoryDto;
+import productservice.dto.GenericProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
 import productservice.models.Product;
@@ -73,6 +77,43 @@ public class FakeStoreProductServiceClient {
         return responseEntity.getBody();
 
 
+    }
+
+    public FakeStoreProductDto deleteProductById(Long id){
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        RequestCallback requestCallback =
+                restTemplate.acceptHeaderRequestCallback(FakeStoreProductDto.class);
+
+        ResponseExtractor<ResponseEntity<FakeStoreProductDto>> responseExtractor =
+                restTemplate.responseEntityExtractor(FakeStoreProductDto.class);
+
+        ResponseEntity<FakeStoreProductDto> response =
+                restTemplate.execute("https://fakestoreapi.com/products/{id}",
+                        HttpMethod.DELETE,
+                        requestCallback, responseExtractor, id);
+
+
+        return response.getBody();
+    }
+
+    public FakeStoreProductDto updateProduct(Long id, GenericProductDto genericProductDto){
+
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        RequestCallback requestCallback =
+                restTemplate.httpEntityCallback(genericProductDto,FakeStoreProductDto.class);
+
+        ResponseExtractor<ResponseEntity<FakeStoreProductDto>> responseExtractor =
+                restTemplate.responseEntityExtractor(FakeStoreProductDto.class);
+
+        ResponseEntity<FakeStoreProductDto> response =
+                restTemplate.execute("https://fakestoreapi.com/products/{id}",
+                        HttpMethod.PUT,
+                        requestCallback, responseExtractor, id);
+
+        //return response != response.getBody() : null ;
+        return response.getBody();
     }
 
 }
