@@ -103,7 +103,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
     }
 
     @Override
-    public GenericProductDto updateProduct(Long id, GenericProductDto genericProductDto) {
+    public GenericProductDto updateProduct(Long id, GenericProductDto genericProductDto) throws NotFoundException {
 
         FakeStoreProductDto fakeStoreProductDto
                 = fakeStoreProductServiceClient.updateProduct(id,genericProductDto);

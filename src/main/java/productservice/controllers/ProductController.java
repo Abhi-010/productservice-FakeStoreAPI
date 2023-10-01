@@ -53,10 +53,12 @@ public class ProductController {
     }
 
     @PutMapping("{id}")
-    public GenericProductDto updateProduct(@PathVariable("id") Long id,
-            @RequestBody GenericProductDto genericProductDto){
+    public ResponseEntity<GenericProductDto> updateProduct(@PathVariable("id") Long id,
+            @RequestBody GenericProductDto genericProductDto) throws NotFoundException {
 
-        return productService.updateProduct(id, genericProductDto);
+        return new ResponseEntity<>(productService.updateProduct(id,genericProductDto),
+                HttpStatus.NOT_FOUND);
+        //return productService.updateProduct(id, genericProductDto);
 
     }
 }

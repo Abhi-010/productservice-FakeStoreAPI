@@ -20,6 +20,6 @@ public interface ProductService {
 
     public ProductDto deleteProductById(Long id);
 
-    public GenericProductDto updateProduct(Long id,GenericProductDto genericProductDto);
+    public GenericProductDto updateProduct(Long id,GenericProductDto genericProductDto) throws NotFoundException;
 
 }

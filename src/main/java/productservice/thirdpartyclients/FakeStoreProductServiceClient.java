@@ -97,7 +97,7 @@ public class FakeStoreProductServiceClient {
         return response.getBody();
     }
 
-    public FakeStoreProductDto updateProduct(Long id, GenericProductDto genericProductDto){
+    public FakeStoreProductDto updateProduct(Long id, GenericProductDto genericProductDto) throws NotFoundException {
 
         RestTemplate restTemplate = restTemplateBuilder.build();
 
@@ -112,6 +112,9 @@ public class FakeStoreProductServiceClient {
                         HttpMethod.PUT,
                         requestCallback, responseExtractor, id);
 
+        if(response.getBody() == null){
+            throw new NotFoundException("id is not valid");
+        }
         //return response != response.getBody() : null ;
         return response.getBody();
     }
