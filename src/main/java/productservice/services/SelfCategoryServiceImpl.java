@@ -23,16 +23,16 @@ public class SelfCategoryServiceImpl implements CategoryService{
     public List<String> getAllCategories() {
 
         List<Category> categories = categoryRepository.findAll();
+        List<Product> productList = categories.get(0).getProduct();
+        System.out.println("size of PRODUCT" + productList.size());
+        //Thread.sleep(1000);
+
         List<String> categoriesList = new ArrayList<>();
         for(Category c : categories){
             categoriesList.add(c.getName());
         }
 
-        List<Product> productList = categories.get(0).getProduct();
         System.out.println("PRODucttttttt......");
-        for(Product p : productList){
-            System.out.println(p);
-        }
         return categoriesList;
     }
 }

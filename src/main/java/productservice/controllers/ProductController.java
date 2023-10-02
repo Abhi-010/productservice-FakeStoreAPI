@@ -8,6 +8,7 @@ import productservice.dto.CreateProductDto;
 import productservice.dto.GenericProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
+import productservice.models.Category;
 import productservice.services.ProductService;
 import productservice.thirdpartyclients.FakeStoreProductDto;
 
@@ -35,8 +36,9 @@ public class ProductController {
     }
 
 
-    @GetMapping("/category/{categoryName}")
-    public List<ProductDto> getProductsByCategory(@PathVariable("categoryName") String categoryName) throws NotFoundException {
+    @GetMapping("/category")
+    public List<ProductDto> getProductsByCategory(@RequestBody Category categoryName) throws NotFoundException {
+        System.out.println("you are in product controller.....");
         return productService.getProductsByCategory(categoryName);
     }
 

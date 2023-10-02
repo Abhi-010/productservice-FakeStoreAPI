@@ -7,6 +7,7 @@ import productservice.dto.CreateProductDto;
 import productservice.dto.GenericProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
+import productservice.models.Category;
 import productservice.thirdpartyclients.FakeStoreProductDto;
 import productservice.thirdpartyclients.FakeStoreProductServiceClient;
 
@@ -54,8 +55,8 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<ProductDto> getProductsByCategory(String categoryName) throws NotFoundException {
-
+    public List<ProductDto> getProductsByCategory(Category categoryName) throws NotFoundException {
+        /*
         List<FakeStoreProductDto> fakeStoreProductDtoList =
                 fakeStoreProductServiceClient.getProductsByCategory(categoryName);
 
@@ -71,6 +72,8 @@ public class FakeStoreProductServiceImpl implements ProductService {
         }
 
         return productDtoList;
+        */
+        return null;
     }
 
     @Override

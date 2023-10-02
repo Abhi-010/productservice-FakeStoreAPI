@@ -7,6 +7,7 @@ import productservice.dto.CreateProductDto;
 import productservice.dto.GenericProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
+import productservice.models.Category;
 import productservice.models.Product;
 import productservice.repository.ProductRepository;
 import productservice.thirdpartyclients.FakeStoreProductDto;
@@ -61,8 +62,26 @@ public class SelfProductServiceImpl implements ProductService {
     }
     
     @Override
-    public List<ProductDto> getProductsByCategory(String categoryName) {
-        return null;
+    public List<ProductDto> getProductsByCategory(Category categoryName) {
+
+//        Category category = new Category();
+//        category.setName(categoryName);
+        List<Product> productList =
+                productRepository.findProductByCategory(categoryName);
+
+        List<ProductDto> productDtoList = new ArrayList<>();
+        System.out.println("size of product DTOOOO" + productDtoList.size());
+
+        for(Product p : productList){
+            ProductDto productDto = new ProductDto();
+            productDto.setCategory(p.getCategory().toString());
+            productDto.setTitle(p.getTitle());
+            productDto.setPrice(p.getPrice());
+            productDto.setDescription(p.getDescription());
+
+            productDtoList.add(productDto);
+        }
+        return productDtoList;
     }
 
     @Override
