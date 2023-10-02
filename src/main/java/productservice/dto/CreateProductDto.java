@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import productservice.models.Category;
+import productservice.models.Price;
 
 @Getter
 @Setter
@@ -12,7 +14,7 @@ import lombok.Setter;
 public class CreateProductDto {
     private Long id;
     private String title;
-    private double price;
-    private String category;
+    private Price price;
+    private Category category;
     private String description;
 }

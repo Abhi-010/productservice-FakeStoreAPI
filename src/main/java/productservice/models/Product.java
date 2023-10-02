@@ -1,19 +1,29 @@
 package productservice.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@ToString
 public class Product extends BaseModel {
+
     private String title;
-    private String price;
-    private String description;
-    private String category;
+    @Column(name = "image_url")
     private String image;
+    private String description;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Category category;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Price price;
+
+
 
 }

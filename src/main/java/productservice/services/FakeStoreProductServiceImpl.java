@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Primary
 public class FakeStoreProductServiceImpl implements ProductService {
 
     FakeStoreProductServiceClient fakeStoreProductServiceClient;
@@ -26,7 +25,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
         FakeStoreProductDto fakeStoreProductDto = fakeStoreProductServiceClient.getProductById(id);
 
         ProductDto productDto = new ProductDto();
-        productDto.setCategory(fakeStoreProductDto.getCategory());
+      //  productDto.setCategory(fakeStoreProductDto.getCategory());
         productDto.setTitle(fakeStoreProductDto.getTitle());
         productDto.setPrice(fakeStoreProductDto.getPrice());
         productDto.setDescription(fakeStoreProductDto.getDescription());
@@ -45,7 +44,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
             ProductDto productDto = new ProductDto();
             productDto.setPrice(fakeStoreProductDto.getPrice());
             productDto.setTitle(fakeStoreProductDto.getTitle());
-            productDto.setCategory(fakeStoreProductDto.getCategory());
+           // productDto.setCategory(fakeStoreProductDto.getCategory());
 
             productDtoList.add(productDto);
         }
@@ -66,7 +65,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
             ProductDto productDto = new ProductDto();
             productDto.setPrice(fakeStoreProductDto.getPrice());
             productDto.setTitle(fakeStoreProductDto.getTitle());
-            productDto.setCategory(fakeStoreProductDto.getCategory());
+            //productDto.setCategory(fakeStoreProductDto.getCategory());
 
             productDtoList.add(productDto);
         }
@@ -95,7 +94,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
                 fakeStoreProductServiceClient.deleteProductById(id);
         ProductDto productDto = new ProductDto();
 
-        productDto.setCategory(fakeStoreProductDto.getCategory());
+       // productDto.setCategory(fakeStoreProductDto.getCategory());
         productDto.setTitle(fakeStoreProductDto.getTitle());
         productDto.setPrice(fakeStoreProductDto.getPrice());
         productDto.setDescription(fakeStoreProductDto.getDescription());
