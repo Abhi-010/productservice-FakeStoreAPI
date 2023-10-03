@@ -15,11 +15,11 @@ public interface ProductService {
     public ProductDto getProductById(Long id) throws NotFoundException;
     public List<ProductDto> getProductList();
 
-    public List<ProductDto> getProductsByCategory(Category categoryName) throws NotFoundException;
+    public List<GenericProductDto> getProductsByCategory(String categoryName) throws NotFoundException;
 
-    public CreateProductDto createProduct(ProductDto productDto);
+    public GenericProductDto createProduct(ProductDto productDto);
 
-    public ProductDto deleteProductById(Long id);
+    public GenericProductDto deleteProductById(Long id);
 
     public GenericProductDto updateProduct(Long id,GenericProductDto genericProductDto) throws NotFoundException;
 

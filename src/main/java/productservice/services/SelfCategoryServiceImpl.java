@@ -24,7 +24,7 @@ public class SelfCategoryServiceImpl implements CategoryService{
 
         List<Category> categories = categoryRepository.findAll();
         List<Product> productList = categories.get(0).getProduct();
-        System.out.println("size of PRODUCT" + productList.size());
+        //System.out.println("size of PRODUCT" + productList.size());
         //Thread.sleep(1000);
 
         List<String> categoriesList = new ArrayList<>();
@@ -32,7 +32,7 @@ public class SelfCategoryServiceImpl implements CategoryService{
             categoriesList.add(c.getName());
         }
 
-        System.out.println("PRODucttttttt......");
+        //System.out.println("PRODucttttttt......");
         return categoriesList;
     }
 }

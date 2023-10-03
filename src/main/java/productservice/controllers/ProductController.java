@@ -36,20 +36,19 @@ public class ProductController {
     }
 
 
-    @GetMapping("/category")
-    public List<ProductDto> getProductsByCategory(@RequestBody Category categoryName) throws NotFoundException {
-        System.out.println("you are in product controller.....");
+    @GetMapping("/category/{categoryName}")
+    public List<GenericProductDto> getProductsByCategory(@PathVariable("categoryName") String categoryName) throws NotFoundException {
         return productService.getProductsByCategory(categoryName);
     }
 
 
     @PostMapping
-    public CreateProductDto createProduct(@RequestBody ProductDto productDto){
+    public GenericProductDto createProduct(@RequestBody ProductDto productDto){
         return productService.createProduct(productDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ProductDto> deleteProductById(@PathVariable("id") Long id){
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id){
         return new ResponseEntity<>(productService.deleteProductById(id),
                 HttpStatus.OK);
     }

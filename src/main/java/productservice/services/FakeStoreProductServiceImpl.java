@@ -28,7 +28,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
         ProductDto productDto = new ProductDto();
       //  productDto.setCategory(fakeStoreProductDto.getCategory());
         productDto.setTitle(fakeStoreProductDto.getTitle());
-        productDto.setPrice(fakeStoreProductDto.getPrice());
+        productDto.setPrice(fakeStoreProductDto.getPrice().getPrice());
         productDto.setDescription(fakeStoreProductDto.getDescription());
         return  productDto;
     }
@@ -43,7 +43,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
         List<ProductDto> productDtoList = new ArrayList<>();
         for(FakeStoreProductDto fakeStoreProductDto : fakeStoreProductDtos){
             ProductDto productDto = new ProductDto();
-            productDto.setPrice(fakeStoreProductDto.getPrice());
+            productDto.setPrice(fakeStoreProductDto.getPrice().getPrice());
             productDto.setTitle(fakeStoreProductDto.getTitle());
            // productDto.setCategory(fakeStoreProductDto.getCategory());
 
@@ -55,7 +55,7 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<ProductDto> getProductsByCategory(Category categoryName) throws NotFoundException {
+    public List<GenericProductDto> getProductsByCategory(String categoryName) throws NotFoundException {
         /*
         List<FakeStoreProductDto> fakeStoreProductDtoList =
                 fakeStoreProductServiceClient.getProductsByCategory(categoryName);
@@ -77,31 +77,32 @@ public class FakeStoreProductServiceImpl implements ProductService {
     }
 
     @Override
-    public CreateProductDto createProduct(ProductDto productDto) {
+    public GenericProductDto createProduct(ProductDto productDto) {
         FakeStoreProductDto fakeStoreProductDto =
                 fakeStoreProductServiceClient.createProduct(productDto);
+        return null;
 
-        CreateProductDto createProductDto = new CreateProductDto();
-        createProductDto.setCategory(fakeStoreProductDto.getCategory());
-        createProductDto.setId(fakeStoreProductDto.getId());
-        createProductDto.setTitle(fakeStoreProductDto.getTitle());
-        createProductDto.setDescription(fakeStoreProductDto.getDescription());
-        createProductDto.setPrice(fakeStoreProductDto.getPrice());
-
-        return createProductDto;
+//        ProductDto productDto1 = new ProductDto();
+//        productDto1.setCategory(fakeStoreProductDto.getCategory());
+//        productDto1.setId(fakeStoreProductDto.getId());
+//        productDto1.setTitle(fakeStoreProductDto.getTitle());
+//        productDto1.setDescription(fakeStoreProductDto.getDescription());
+//        productDto1.setPrice(fakeStoreProductDto.getPrice());
+//
+//        return createProductDto;
     }
 
     @Override
-    public ProductDto deleteProductById(Long id) {
+    public GenericProductDto deleteProductById(Long id) {
         FakeStoreProductDto fakeStoreProductDto =
                 fakeStoreProductServiceClient.deleteProductById(id);
         ProductDto productDto = new ProductDto();
 
        // productDto.setCategory(fakeStoreProductDto.getCategory());
         productDto.setTitle(fakeStoreProductDto.getTitle());
-        productDto.setPrice(fakeStoreProductDto.getPrice());
+        productDto.setPrice(fakeStoreProductDto.getPrice().getPrice());
         productDto.setDescription(fakeStoreProductDto.getDescription());
-        return productDto;
+        return null;
     }
 
     @Override
@@ -112,9 +113,9 @@ public class FakeStoreProductServiceImpl implements ProductService {
 
         GenericProductDto genericProductDto1 = new GenericProductDto();
 
-        genericProductDto1.setCategory(fakeStoreProductDto.getCategory());
+        genericProductDto1.setCategory(fakeStoreProductDto.getCategory().getName());
         genericProductDto1.setDescription(fakeStoreProductDto.getDescription());
-        genericProductDto1.setPrice(fakeStoreProductDto.getPrice());
+        genericProductDto1.setPrice(fakeStoreProductDto.getPrice().getPrice());
         genericProductDto1.setTitle(fakeStoreProductDto.getTitle());
 
         return genericProductDto1;

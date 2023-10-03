@@ -8,7 +8,10 @@ import productservice.dto.GenericProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
 import productservice.models.Category;
+import productservice.models.Price;
 import productservice.models.Product;
+import productservice.repository.CategoryRepository;
+import productservice.repository.PriceRespository;
 import productservice.repository.ProductRepository;
 import productservice.thirdpartyclients.FakeStoreProductDto;
 
@@ -21,8 +24,14 @@ import java.util.Optional;
 public class SelfProductServiceImpl implements ProductService {
 
     ProductRepository productRepository;
-    public SelfProductServiceImpl(ProductRepository productRepository){
+    private final CategoryRepository categoryRepository;
+    private final PriceRespository priceRespository;
+
+    public SelfProductServiceImpl(ProductRepository productRepository,
+                                  CategoryRepository categoryRepository,PriceRespository priceRespository){
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+        this.priceRespository = priceRespository;
     }
 
 
@@ -38,8 +47,9 @@ public class SelfProductServiceImpl implements ProductService {
             ProductDto productDto = new ProductDto();
             productDto.setTitle(product1.getTitle());
             productDto.setDescription(product1.getDescription());
-            //productDto.setCategory(product1.getCategory());
-            productDto.setPrice(product1.getPrice());
+            productDto.setCategory(product1.getCategory().getName());
+            productDto.setPrice(product1.getPrice().getPrice());
+            productDto.setImage(product1.getImage());
             return productDto;
 
     }
@@ -52,7 +62,7 @@ public class SelfProductServiceImpl implements ProductService {
 
         for(Product p : productList){
             ProductDto productDto = new ProductDto();
-            productDto.setPrice(p.getPrice());
+            productDto.setPrice(p.getPrice().getPrice());
             productDto.setDescription(p.getDescription());
             productDto.setTitle(p.getTitle());
 
@@ -62,39 +72,95 @@ public class SelfProductServiceImpl implements ProductService {
     }
     
     @Override
-    public List<ProductDto> getProductsByCategory(Category categoryName) {
+    public List<GenericProductDto> getProductsByCategory(String categoryName) {
 
-//        Category category = new Category();
-//        category.setName(categoryName);
-        List<Product> productList =
-                productRepository.findProductByCategory(categoryName);
-
-        List<ProductDto> productDtoList = new ArrayList<>();
-        System.out.println("size of product DTOOOO" + productDtoList.size());
-
-        for(Product p : productList){
-            ProductDto productDto = new ProductDto();
-            productDto.setCategory(p.getCategory().toString());
-            productDto.setTitle(p.getTitle());
-            productDto.setPrice(p.getPrice());
-            productDto.setDescription(p.getDescription());
-
-            productDtoList.add(productDto);
+        Optional<Category> category =
+                categoryRepository.findDistinctByNameEquals(categoryName);
+        List<Product> productList = new ArrayList<>();
+        if(!category.isEmpty()){
+            productList = category.get().getProduct();
         }
-        return productDtoList;
+
+        List<GenericProductDto> genericProductDtos = new ArrayList<>();
+
+        for(Product p: productList){
+            genericProductDtos.add(convertProductToGenericProductDto(p));
+        }
+        return genericProductDtos;
+    }
+
+
+    @Override
+    public GenericProductDto createProduct(ProductDto productDto) {
+
+        //title,image,description..
+
+        Category categoryToSet = new Category();
+
+        Optional<Category> category
+                = categoryRepository.findDistinctByNameEquals(productDto.getCategory());
+
+        if(category.isEmpty()){
+            categoryToSet.setName(productDto.getCategory());
+        }
+        else{
+            categoryToSet = category.get();
+        }
+
+        Price priceToSet = new Price();
+        Optional<Price> price = priceRespository.findByPrice(productDto.getPrice());
+
+        if(price.isEmpty()){
+            priceToSet.setPrice(productDto.getPrice());
+        }
+        else{
+            priceToSet = price.get();
+        }
+
+        Product saveProduct = new Product();
+        saveProduct.setDescription(productDto.getDescription());
+        saveProduct.setImage(productDto.getImage());
+        saveProduct.setTitle(productDto.getTitle());
+        saveProduct.setCategory(categoryToSet);
+        saveProduct.setPrice(priceToSet);
+
+        Product product1 = productRepository.save(saveProduct);
+
+         return convertProductToGenericProductDto(product1);
+
+
+    }
+
+    public GenericProductDto convertProductToGenericProductDto(Product product){
+         GenericProductDto genericProductDto = new GenericProductDto();
+         genericProductDto.setId(product.getId());
+         genericProductDto.setTitle(product.getTitle());
+         genericProductDto.setDescription(product.getDescription());
+         genericProductDto.setImage(product.getImage());
+         genericProductDto.setPrice(product.getPrice().getPrice());
+         genericProductDto.setCategory(product.getCategory().getName());
+         return genericProductDto;
+    }
+
+    public ProductDto convertProductToProductDto(Product product){
+        ProductDto productDto = new ProductDto();
+        productDto.setImage(product.getImage());
+        productDto.setCategory(productDto.getCategory());
+        productDto.setTitle(product.getTitle());
+        productDto.setCategory(product.getCategory().getName());
+        productDto.setPrice(product.getPrice().getPrice());
+        return productDto;
     }
 
     @Override
-    public CreateProductDto createProduct(ProductDto productDto) {
-        return null;
-    }
+    public GenericProductDto deleteProductById(Long id) {
 
-    @Override
-    public ProductDto deleteProductById(Long id) {
+         Optional<Product> product = productRepository.findById(id);
 
+         GenericProductDto genericProductDto =
+                 convertProductToGenericProductDto(product.get());
          productRepository.deleteById(id);
-        System.out.println("Product is deleted.. !!");
-         return null;
+         return genericProductDto;
     }
 
     @Override

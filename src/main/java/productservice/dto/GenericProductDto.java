@@ -12,8 +12,10 @@ import productservice.models.Price;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GenericProductDto {
+    private Long id;
     private String title;
-    private Price price;
-    private Category category;
+    private String category;
     private String description;
+    private double price;
+    private String image;
 }
