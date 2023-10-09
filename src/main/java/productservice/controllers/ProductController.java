@@ -3,14 +3,10 @@ package productservice.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import productservice.dto.CategoryDto;
-import productservice.dto.CreateProductDto;
 import productservice.dto.GenericProductDto;
 import productservice.dto.ProductDto;
 import productservice.exception.NotFoundException;
-import productservice.models.Category;
 import productservice.services.ProductService;
-import productservice.thirdpartyclients.FakeStoreProductDto;
 
 import java.util.List;
 
@@ -24,10 +20,19 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProducts(@PathVariable ("id")Long id) throws NotFoundException {
+    public ProductDto getProductById(@PathVariable ("id")Long id) throws NotFoundException {
+
+        ProductDto productDto = productService.getProductById(id);
+        if(productDto==null){
+            throw new NotFoundException("Product not exist");
+        }
+        return productDto;
+        /*
         ResponseEntity<ProductDto> responseEntity =
                 new ResponseEntity<>(productService.getProductById(id), HttpStatus.NOT_FOUND);
         return responseEntity;
+
+         */
     }
 
     @GetMapping

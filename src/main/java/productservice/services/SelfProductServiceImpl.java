@@ -23,7 +23,7 @@ import java.util.Optional;
 @Primary
 public class SelfProductServiceImpl implements ProductService {
 
-    ProductRepository productRepository;
+    private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final PriceRespository priceRespository;
 
@@ -37,9 +37,11 @@ public class SelfProductServiceImpl implements ProductService {
 
     @Override
     public ProductDto getProductById(Long id) throws NotFoundException {
+        System.out.println("GET PRODUCTTTTT BYYYY IDDDDDD");
             Optional<Product> product =
                     productRepository.findById(id);
             if(!product.isPresent()){
+                //return null;
                 throw  new NotFoundException("id is not present");
             }
             Product product1 = product.get();

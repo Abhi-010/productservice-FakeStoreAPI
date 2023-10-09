@@ -16,21 +16,21 @@ import java.util.List;
 @SpringBootApplication
 public class ECommerceApplication implements CommandLineRunner {
 
-	private ProductRepository productRepository;
-	private CategoryRepository categoryRepository;
-	private PriceRepository priceRepository;
-
-	private SelfCategoryServiceImpl selfCategoryService;
-
-	public ECommerceApplication(ProductRepository productRepository,
-								CategoryRepository categoryRepository,
-								PriceRepository priceRepository,
-								SelfCategoryServiceImpl selfCategoryService){
-		this.productRepository = productRepository;
-		this.categoryRepository = categoryRepository;
-		this.priceRepository = priceRepository;
-		this.selfCategoryService = selfCategoryService;
-	}
+//	private ProductRepository productRepository;
+//	private CategoryRepository categoryRepository;
+//	private PriceRepository priceRepository;
+//
+//	private SelfCategoryServiceImpl selfCategoryService;
+//
+//	public ECommerceApplication(ProductRepository productRepository,
+//								CategoryRepository categoryRepository,
+//								PriceRepository priceRepository,
+//								SelfCategoryServiceImpl selfCategoryService){
+//		this.productRepository = productRepository;
+//		this.categoryRepository = categoryRepository;
+//		this.priceRepository = priceRepository;
+//		this.selfCategoryService = selfCategoryService;
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(ECommerceApplication.class, args);
